@@ -56,12 +56,15 @@ class Button:
 		self.draw_background()
 		self.draw_border()
 		self.draw_text()
+		
+	def is_clicked(self, click_x: int, click_y: int):
+		return click_x >= self.x and click_x <= self.x+self.width and click_y >= self.y and click_y <= self.y+self.height
 
 
 class Menu:
 
-	MARGIN = 40  # pixels
-	BUTTON_HEIGHT = 30  # pixels
+	MARGIN = 30  # pixels
+	BUTTON_HEIGHT = 25  # pixels
 	
 	def add_buttons(self):
 		buttons_x = self.x + Menu.MARGIN

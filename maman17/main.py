@@ -19,8 +19,9 @@ logger.addHandler(ch)
 
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 1100, 500
-MENU_WIDTH, MENU_HEIGHT = 300, WINDOW_HEIGHT
+MENU_WIDTH, MENU_HEIGHT = 250, WINDOW_HEIGHT
 MENU_LEFT = WINDOW_WIDTH - MENU_WIDTH
+
 
 """components of display"""
 
@@ -33,6 +34,12 @@ menu = Menu(MENU_LEFT, 0, MENU_WIDTH, MENU_HEIGHT)
 
 def mouse(button: int, state: int, x: int, y: int) -> None:
 	logger.debug("mouse: button={}, state={}, x={}, y={}".format(button, state, x, y))
+	if state == 1:
+		comp_x, comp_y = x, WINDOW_HEIGHT - y
+		for button in menu.buttons:
+			if button.is_clicked(comp_x, comp_y):
+				button.click_callback()
+				break
 
 
 def reshape(width: int, height: int) -> None:
@@ -40,31 +47,6 @@ def reshape(width: int, height: int) -> None:
 	logger.debug("reshape: w={}, h={}".format(width, height))
 	glutReshapeWindow(WINDOW_WIDTH, WINDOW_HEIGHT)
 
-"""
-def draw_button(left: int = BUTTONS_LEFT, top: int = BUTTONS_TOP, right: int = BUTTONS_RIGHT, bottom: int = BUTTONS_BOTTOM, counter: int = 0):
-	glColor3f(0.690, 0.769, 0.871)  # LightSteel
-	top += BUTTONS_HEIGHT * counter
-	bottom += BUTTONS_HEIGHT * counter
-	glViewport(BUTTONS_LEFT, BUTTONS_TOP, BUTTONS_RIGHT, BUTTONS_BOTTOM)
-	glRectf(-1.0, 1.0, 1.0, -1.0)
-	
-	glColor3f(0.0, 0.0, 0.0)  # Black border
-	glLineWidth(1)
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-	glRectf(-1.0, 1.0, 1.0, -1.0)
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-	
-	return
-	glBegin(GL_LINE_LOOP)
-	glVertex2f(left, top)
-	glVertex2f(right, top)
-	glVertex2f(right, bottom)
-	glVertex2f(left, bottom)
-	glEnd()
-	
-	render_and_draw_string(BUTTON_TEXT_X, BUTTON_TEXT_Y
-		, "EXIT", GLUT_BITMAP_8_BY_13)
-"""
 
 def display() -> None:
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
