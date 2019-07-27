@@ -18,14 +18,14 @@ logger.addHandler(ch)
 """constants"""
 
 
-WINDOW_WIDTH, WINDOW_HEIGHT = 1000, 500
-MENU_LEFT = 800
-
+WINDOW_WIDTH, WINDOW_HEIGHT = 1100, 500
+MENU_WIDTH, MENU_HEIGHT = 300, WINDOW_HEIGHT
+MENU_LEFT = WINDOW_WIDTH - MENU_WIDTH
 
 """components of display"""
 
 
-menu = Menu(MENU_LEFT, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+menu = Menu(MENU_LEFT, 0, MENU_WIDTH, MENU_HEIGHT)
 
 
 """callbacks"""
@@ -71,7 +71,7 @@ def display() -> None:
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
 	
 	menu.draw()
-	
+
 	glFlush()
 
 
